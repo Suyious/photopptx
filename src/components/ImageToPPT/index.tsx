@@ -49,23 +49,23 @@ export default function ImageToPPT() {
   return (
     <div className="p-4 max-w-[90dvw] w-[650px] rounded-[1em] border-2 shadow-primary border-primary-fill text-secondary-foreground bg-secondary-background">
 
-      <div className="flex justify-between">
-        <div className="">
+      <div className="flex justify-between flex-wrap gap-2">
+        <div className="w-fit">
           <span ref={mirrorRef} className="invisible absolute whitespace-pre font-inherit"> {fileName} </span>
           <input
-           className="outline-none text-black" type="text" ref={fileNameRef} value={fileName}
+           className="max-w-[200px] md:max-w-[420px] outline-none text-black" type="text" ref={fileNameRef} value={fileName}
            onChange={e => setFileName(e.target.value)}
            onFocus={() => fileNameRef.current?.select()}
            onBlur={() => { if(fileName.trim() === "") setFileName("untitled") }}
            />
-          <span className="text-black font-primary-display">.pptx</span>
+          <span className="w-full text-black font-primary-display">.pptx</span>
         </div>
         <button onClick={handleGenerate} className="px-6 py-1 flex items-center border-1 border-secondary-foreground bg-primary-fill text-white rounded-xl font-primary-display">
           Create ppt <EnterIcon />
         </button>
       </div>
       <input className="hidden" type="file" ref={filesRef} multiple accept="image/*" onChange={handleChange} />
-      <button onClick={() => filesRef.current?.click()} className=" cursor-pointer px-6 py-1 flex items-center bg-secondary-background border-2 border-secondary-foreground rounded-xl font-primary-display">Add Images</button>
+      <button onClick={() => filesRef.current?.click()} className="mt-2 cursor-pointer px-6 py-1 flex items-center bg-secondary-background border-2 border-secondary-foreground rounded-xl font-primary-display">Add Images</button>
 
       <div className="relative pt-4">
         <div ref={filesContainerRef} className="flex flex-wrap gap-3 w-full overflow-y-scroll"
