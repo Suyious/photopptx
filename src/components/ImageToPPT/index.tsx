@@ -15,7 +15,9 @@ export default function ImageToPPT() {
   const filesContainerRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if(e.target.files) setFiles(Array.from(e.target.files));
+    if (e.target.files) {
+      setFiles((prevFiles) => [...prevFiles, ...Array.from(e.target.files!)]);
+    }
   };
 
   const clearFiles = () => {
