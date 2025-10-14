@@ -70,15 +70,15 @@ export default function ImageToPPT() {
       <button onClick={() => filesRef.current?.click()} className="mt-2 cursor-pointer px-6 py-1 flex items-center bg-secondary-background border-2 border-secondary-foreground rounded-xl font-primary-display">Add Images</button>
 
       <div className="relative pt-4">
-        <div ref={filesContainerRef} className="flex flex-wrap gap-3 w-full overflow-y-scroll"
+        <div ref={filesContainerRef} className="grid grid-cols-2 md:grid-cols-4 gap-3 overflow-y-scroll"
           style={{ maxHeight: getOptimumHeight(filesContainerRef) + "px"}}
         >
           {files.map((f,i) => <div key={f.lastModified}>
             <div className="relative border-2 border-secondary-foreground rounded-lg overflow-hidden" >
-              <img width={150} src={URL.createObjectURL(f)} alt={f.name} />
+              <img className="object-cover w-full" width={150} src={URL.createObjectURL(f)} alt={f.name} />
               <div className="cursor-pointer absolute top-0 left-0 w-full h-full bg-black/20"></div>
               <div className="absolute w-full flex justify-between bottom-1 left-0 px-2 text-sm text-primary-foreground">
-                <span className="inline-block w-16 overflow-hidden overflow-ellipsis">{f.name}</span>
+                <span className="inline-block w-14 overflow-hidden overflow-ellipsis">{f.name}</span>
                 <span className="">{formatFileSize(f.size)}</span>
               </div> 
               <button onClick={() => removeFile(i)} className="cursor-pointer absolute w-6 h-6 flex justify-center items-center top-1 right-1 bg-primary-foreground rounded-[20px]"><Close/></button>
