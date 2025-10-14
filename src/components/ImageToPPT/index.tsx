@@ -9,6 +9,9 @@ import Close from "../../assets/icons/close";
 export default function ImageToPPT() {
   const [files, setFiles] = useState<File[]>([]);
   const [fileName, setFileName] = useState<string>("untitled");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [progress, setProgress] = useState<number>(0);
+
   const fileNameRef = useRef<HTMLInputElement>(null);
   const filesRef = useRef<HTMLInputElement>(null);
   const mirrorRef = useRef<HTMLSpanElement>(null);
@@ -31,13 +34,20 @@ export default function ImageToPPT() {
 
   const handleGenerate = async () => {
     if (!files.length) return alert("No images selected!");
-
+    
+    setLoading(true)
+    setProgress(0);
     try {
-      await imagesToPPTX(files, fileName + ".pptx");
-    } catch (error) {
-      console.error(error);
-      alert("Failed to generate PPT");
-    } 
+      await imagesToPPTX(files, fileName + ".pptx",  (c, n) => {
+        setProgress(Math.round(c/n * 100))
+      }
+    );
+  } catch (error) {
+    console.error(error);
+    alert("Failed to generate PPT");
+  } finally {
+    setLoading(false);
+  }
 
   };
 
@@ -69,12 +79,12 @@ export default function ImageToPPT() {
       <input className="hidden" type="file" ref={filesRef} multiple accept="image/*" onChange={handleChange} />
       <button onClick={() => filesRef.current?.click()} className="mt-2 cursor-pointer px-6 py-1 flex items-center bg-secondary-background border-2 border-secondary-foreground rounded-xl font-primary-display">Add Images</button>
 
-      <div className="relative pt-4">
+      {files.length > 0 && <div className="relative mt-4 rounded-lg overflow-hidden">
         <div ref={filesContainerRef} className="grid grid-cols-2 md:grid-cols-4 gap-3 overflow-y-scroll"
           style={{ maxHeight: getOptimumHeight(filesContainerRef) + "px"}}
         >
           {files.map((f,i) => <div key={f.lastModified}>
-            <div className="relative border-2 border-secondary-foreground rounded-lg overflow-hidden" >
+            <div className="relative border-2 border-secondary-foreground" >
               <img className="object-cover w-full" width={150} src={URL.createObjectURL(f)} alt={f.name} />
               <div className="cursor-pointer absolute top-0 left-0 w-full h-full bg-black/20"></div>
               <div className="absolute w-full flex justify-between bottom-1 left-0 px-2 text-sm text-primary-foreground">
@@ -85,10 +95,13 @@ export default function ImageToPPT() {
             </div>
           </div>)}
         </div>
-        {files.length > 0 && <div className="absolute bottom-2 right-2">
+        <div className="absolute bottom-2 right-2">
           <button className="cursor-pointer w-14 h-14 rounded-[50px] flex justify-center items-center border-3 border-secondary-foreground bg-primary-foreground" onClick={clearFiles}><CleanIcon/></button>
+        </div>
+        {loading && <div className="absolute top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center">
+          <span className="text-[4em] font-primary-display text-white">{progress}%</span>
         </div>}
-      </div>
+      </div>}
     </div>
   );
 }

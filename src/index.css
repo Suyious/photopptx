@@ -2,8 +2,7 @@
 
 @font-face {
   font-family: 'Jaro';
-  src: url('/fonts/Jaro-Regular-VariableFont.woff2') format('woff2-variations'),
-       url('/fonts/Jaro-Regular-VariableFont.ttf') format('truetype'); /* optional fallback */
+  src: url('/fonts/Jaro-Regular-VariableFont.woff2') format('woff2-variations');
   font-weight: 100 900; /* variable range */
   font-stretch: 75% 125%; /* include if your font supports it */
   font-style: normal;
