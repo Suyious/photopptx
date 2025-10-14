@@ -79,14 +79,14 @@ export default function ImageToPPT() {
       <input className="hidden" type="file" ref={filesRef} multiple accept="image/*" onChange={handleChange} />
       <button onClick={() => filesRef.current?.click()} className="mt-2 cursor-pointer px-6 py-1 flex items-center bg-secondary-background border-2 border-secondary-foreground rounded-xl font-primary-display">Add Images</button>
 
-      {files.length > 0 && <div className="relative mt-4 rounded-lg overflow-hidden">
+      <div className="relative rounded-lg overflow-hidden">
         <div ref={filesContainerRef} className="grid grid-cols-2 md:grid-cols-4 gap-3 overflow-y-scroll"
-          style={{ maxHeight: getOptimumHeight(filesContainerRef) + "px"}}
+          style={{ maxHeight: getOptimumHeight(filesContainerRef) + "px", marginTop: files.length > 0 ? "1em":"0"}}
         >
           {files.map((f,i) => <div key={f.lastModified}>
-            <div className="relative border-2 border-secondary-foreground" >
+            <div className="relative border-2 border-secondary-foreground rounded-lg overflow-hidden" >
               <img className="object-cover w-full" width={150} src={URL.createObjectURL(f)} alt={f.name} />
-              <div className="cursor-pointer absolute top-0 left-0 w-full h-full bg-black/20"></div>
+              <div className="cursor-pointer absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/0 to-black/40"></div>
               <div className="absolute w-full flex justify-between bottom-1 left-0 px-2 text-sm text-primary-foreground">
                 <span className="inline-block w-14 overflow-hidden overflow-ellipsis">{f.name}</span>
                 <span className="">{formatFileSize(f.size)}</span>
@@ -101,7 +101,7 @@ export default function ImageToPPT() {
         {loading && <div className="absolute top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center">
           <span className="text-[4em] font-primary-display text-white">{progress}%</span>
         </div>}
-      </div>}
+      </div>
     </div>
   );
 }

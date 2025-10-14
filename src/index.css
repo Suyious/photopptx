@@ -18,6 +18,15 @@
   --color-primary-fill: #FF63F5;
   --text-shadow-primary: 0.05em 0.05em 0 var(--color-primary-fill);
   --shadow-primary: 1px 2px 25px var(--color-primary-fill);
+  --animate-fade-in: fade-in 500ms ease-in;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  } 100% {
+    opacity: 1;
+  }
 }
 
 

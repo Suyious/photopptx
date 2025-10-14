@@ -9,7 +9,7 @@ function App() {
   return (
     <main className='min-h-100dvh w-full'>
       <header className='w-full text-center mt-8 my-14'>
-        <h1 className='select-none text-[6em] md:text-[11em] font-primary-display text-shadow-primary text-shadow-xl'>photopptx</h1>
+        <h1 className='animate-fade-in select-none text-[6em] md:text-[11em] font-primary-display text-shadow-primary text-shadow-xl'>photopptx</h1>
       </header>
       <div className="w-full margin-auto flex justify-center items-center">
         <ImageToPPT/>
