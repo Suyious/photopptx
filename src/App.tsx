@@ -16,7 +16,7 @@ function App() {
       </div>
       <footer>
         <div className="fixed bottom-0 left-0 p-5">
-          <a href="https://github.com/suyious"><GithubIcon width='35'/></a>
+          <a href="https://github.com/suyious/photopptx"><GithubIcon width='35'/></a>
         </div>
       </footer>
     </main>
